@@ -1,5 +1,8 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<time.h>
+
+int opCount = 0;
 
 void swap(int *num1, int *num2) {
     int temp = *num1;
@@ -14,6 +17,7 @@ int partition(int *array, int start, int end) {
     for (int j = start; j < end; j++) {
         // If element is smaller than the pivot swap it with the element before it
         if (array[j] <= pivot) {
+            opCount++;
             swap(&array[++i], &array[j]);
         }
     }
@@ -42,6 +46,7 @@ void printArray(int *arr, int size) {
 void main() {
     // Creating an array of given size
     int size;
+    clock_t start, end;
     printf("Enter size: ");
     scanf("%d", &size);
     int arr[size];
@@ -49,9 +54,9 @@ void main() {
     for (int i = 0; i < size; i++) {
         arr[i] = rand();
     }
-    printf("Array before sort: \n");
-    printArray(arr, size);
+    start = clock();
     quickSort(arr, 0, size - 1);
-    printf("Array after sort: \n");
-    printArray(arr, size);
+    end = clock();
+    double time = (double) (end - start) / CLOCKS_PER_SEC;
+    printf("Opcount is %d, time is %f", opCount, time);
 }

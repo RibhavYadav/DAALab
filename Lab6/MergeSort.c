@@ -1,5 +1,8 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<time.h>
+
+int opCount = 0;
 
 void merge(int *array, int subArray1Index, int subArray2Index, int lastIndex) {
     // Copies of sub arrays are array[subArray1Index ... subArray2Index] and array[subArray2Index+1 ... lastIndex]
@@ -13,6 +16,7 @@ void merge(int *array, int subArray1Index, int subArray2Index, int lastIndex) {
     // sub arrays
     int k = subArray1Index, i, j;
     for (i = 0, j = 0; i < subArray1Length && j < subArray2Length;) {
+        opCount++;
         array[k++] = subArray1[i] <= subArray2[j] ? subArray1[i++] : subArray2[j++];
     }
     // Adding left over elements from the sub arrays
@@ -44,14 +48,15 @@ void printArray(int *array, int size) {
 
 void main() {
     int *array, size;
+    clock_t start, end;
     printf("Enter size:");
     scanf("%d", &size);
     array = (int *) malloc(sizeof(int) * size);
     for (int i = 0; i < size; i++)
         array[i] = rand();
-    printf("Array before swap:\n");
-    printArray(array, size);
+    start = clock();
     mergeSort(array, 0, size - 1);
-    printf("Array after swap:\n");
-    printArray(array, size);
+    end = clock();
+    double time = (double) (end - start) / CLOCKS_PER_SEC;
+    printf("Opcount is %d, time is %f", opCount, time);
 }

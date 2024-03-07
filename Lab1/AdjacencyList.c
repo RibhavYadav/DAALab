@@ -31,12 +31,12 @@ graph createGraph(int vertices) {
 }
 
 void addEdge(graph gp, int s, int d) {
-    node node1 = getNode(s);
-    node node2 = getNode(d);
-    node1->next = gp->adjList[d];
-    node2->next = gp->adjList[s];
-    gp->adjList[s] = node2;
-    gp->adjList[d] = node1;
+    node source = getNode(s);
+    node dest = getNode(d);
+    source->next = gp->adjList[d];
+    dest->next = gp->adjList[s];
+    gp->adjList[s] = dest;
+    gp->adjList[d] = source;
 }
 
 void printGraph(graph gp) {

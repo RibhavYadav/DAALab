@@ -30,13 +30,13 @@ graph createGraph(int vertices) {
     return gp;
 }
 
-void addEdge(graph gp, int n1, int n2) {
-    node node1 = getNode(n1);
-    node node2 = getNode(n2);
-    node1->next = gp->adjList[n2];
-    node2->next = gp->adjList[n1];
-    gp->adjList[n1] = node2;
-    gp->adjList[n2] = node1;
+void addEdge(graph gp, int s, int d) {
+    node node1 = getNode(s);
+    node node2 = getNode(d);
+    node1->next = gp->adjList[d];
+    node2->next = gp->adjList[s];
+    gp->adjList[s] = node2;
+    gp->adjList[d] = node1;
 }
 
 void printGraph(graph gp) {

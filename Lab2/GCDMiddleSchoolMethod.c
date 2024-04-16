@@ -3,7 +3,7 @@
 #include<math.h>
 
 int *sieve(int n) {
-    //Finds prime numbers smaller than n
+    //Finds prime numbers smaller than vertices
     int arr[n], *list = calloc(n, sizeof(int));
     for (int i = 2; i < n; i++)
         arr[i] = 1;

@@ -33,5 +33,5 @@ void main() {
     end = clock();
     printf("Match found at %ld\n", match);
     double time_taken = (double) (end - start) / CLOCKS_PER_SEC;
-    printf("Time taken is %e\nm+n is: %llu", time_taken, (strlen(s1) + strlen(s2)));
+    printf("Time taken is %e\nm+vertices is: %llu", time_taken, (strlen(s1) + strlen(s2)));
 }

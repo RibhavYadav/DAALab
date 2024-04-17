@@ -59,10 +59,11 @@ void search(int elm) {
         while (temp != NULL) {
             comp++;
             temp = temp->next;
-            if (temp->data == elm) {
+            if (temp->data == elm && temp != NULL) {
                 printf("Element found");
                 break;
-            }
+            } else
+                break;
         }
     }
 }

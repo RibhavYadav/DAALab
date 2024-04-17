@@ -1,7 +1,7 @@
 #include<stdio.h>
-#include<stdlib.h>
+#include<time.h>
 
-#define size 4
+#define size 100
 int closure[size][size][size] = {
         {
                 {0, 1, 0, 0},
@@ -39,7 +39,12 @@ void printClosure() {
 }
 
 void main() {
+    clock_t st, ed;
+    st = clock();
     warshall();
+    ed = clock();
+    double tt = (double) (ed - st) / CLOCKS_PER_SEC;
+    printf("Time taken: %f\n", tt);
     printf("Transitive closure: \n");
     printClosure();
 }

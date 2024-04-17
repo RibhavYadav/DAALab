@@ -1,15 +1,20 @@
 #include<stdio.h>
 #include<time.h>
+#include<stdlib.h>
 
-#define size 100
-int closure[size][size][size] = {
-        {
-                {0, 1, 0, 0},
-                {0, 0, 0, 1},
-                {0, 0, 0, 0},
-                {1, 0, 1, 0}
+#define size 10
+int closure[size][size][size];
+
+void init() {
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            if (i == j)
+                closure[0][i][j] = 0;
+            else
+                closure[0][i][j] = rand() % 2;
         }
-};
+    }
+}
 
 void warshall() {
     for (int k = 0; k < size; k++) {
@@ -40,6 +45,7 @@ void printClosure() {
 
 void main() {
     clock_t st, ed;
+    init();
     st = clock();
     warshall();
     ed = clock();

@@ -4,10 +4,7 @@
 int MAX = 256, comp = 0;
 
 int horspool(char text[], char pattern[], int shiftTable[]) {
-    int i, n, m, k;
-    n = strlen(text);
-    m = strlen(pattern);
-    i = m - 1;
+    int k, n = strlen(text), m = strlen(pattern), i = m - 1;;
     while (i < n) {
         k = 0;
         comp++;

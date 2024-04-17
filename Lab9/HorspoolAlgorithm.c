@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int MAX = 256;
+int MAX = 256, comp = 0;
 
 int horspool(char text[], char pattern[], int shiftTable[]) {
     int i, n, m, k;
@@ -10,9 +10,11 @@ int horspool(char text[], char pattern[], int shiftTable[]) {
     i = m - 1;
     while (i < n) {
         k = 0;
-        while ((k < m) && (pattern[m - 1 - k] == text[i - k]))
+        comp++;
+        while ((k < m) && (pattern[m - 1 - k] == text[i - k])) {
+            comp++;
             k++;
-
+        }
         if (k == m)
             return i - m + 1;
         else
@@ -36,14 +38,15 @@ void getShiftTable(char pattern[], int text[]) {
 void main() {
     char text[MAX], pattern[MAX];
     int shiftTable[MAX], found;
-    puts("Enter the source string : ");
+    puts("Enter the source string: ");
     gets(text);
-    puts("Enter the pattern string : ");
+    puts("Enter the pattern string: ");
     gets(pattern);
     getShiftTable(pattern, shiftTable);
     found = horspool(text, pattern, shiftTable);
     if (found == -1)
-        puts("\nMatching Substring not found.\n");
+        puts("\nSubstring not found.\n");
     else
-        printf("\nMatching Substring found at position: %d\n", found + 1);
+        printf("\nSubstring found at position: %d\n", found + 1);
+    printf("Comparisons: %d", comp);
 }

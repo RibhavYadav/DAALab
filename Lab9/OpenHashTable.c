@@ -52,8 +52,8 @@ void printTable() {
 void search(int elm) {
     int hashValue = elm % size;
     node temp = hashTable[hashValue];
+    comp++;
     if (temp->data == elm) {
-        comp++;
         printf("Element found");
     } else {
         while (temp != NULL) {
@@ -79,5 +79,6 @@ void main() {
     printTable();
     printf("Element to search: ");
     scanf("%d", &elm);
-
+    search(elm);
+    printf("\nComparisons: %d", comp);
 }

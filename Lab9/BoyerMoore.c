@@ -9,21 +9,21 @@ int maximum(int a, int b) {
 }
 
 int *badCharTable(char *text) {
-    int n = strlen(text), *badTable = (int *) calloc(max, sizeof(int));
+    int textLength = strlen(text), *badTable = (int *) calloc(max, sizeof(int));
     for (int i = 0; i < max; i++) {
         badTable[i] = -1;
     }
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < textLength; i++) {
         badTable[(int) text[i]] = i;
     }
     return badTable;
 }
 
 void boyerMoore(char *text, char *pattern) {
-    int m = strlen(pattern), n = strlen(text), shifts = 0;
+    int patternLength = strlen(pattern), textLength = strlen(text), shifts = 0;
     int *badTable = badCharTable(text);
-    while (shifts <= (n - m)) {
-        int j = m - 1; // Comparing from the end of the pattern (Right to left)
+    while (shifts <= (textLength - patternLength)) {
+        int j = patternLength - 1; // Comparing from the end of the pattern (Right to left)
         while (j >= 0 && pattern[j] == text[shifts + j]) {
             // If Pattern matches reduce j
             j--;

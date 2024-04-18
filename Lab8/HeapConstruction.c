@@ -29,24 +29,11 @@ void heapify(int *heap, int heapSize, int index) {
 
 int *topDownHeap(int array[], int size) {
     int heapSize = size + 1, *heap = (int *) calloc(heapSize, sizeof(int));
-    for (int i = 0; i < heapSize; i++) {
-        heap[i] = 0;
+    heap[0] = 0;
+    for (int i = 1; i < heapSize; i++) {
+        heap[i] = array[i - 1];
     }
-    int i = 0;
-    for (int j = 1; j < heapSize / 2; j++) {
-        while (i < size) {
-            if (heap[j] == 0) {
-                heap[j] = array[i];
-            } else if (heap[2 * j] == 0) {
-                heap[2 * j] = array[i];
-            } else if (heap[2 * j + 1] == 0) {
-                heap[2 * j + 1] = array[i];
-            } else
-                break;
-            i++;
-        }
-    }
-    for (i = heapSize / 2; i > 0; i--) {
+    for (int i = heapSize / 2; i > 0; i--) {
         heapify(heap, heapSize, i);
     }
     return heap;

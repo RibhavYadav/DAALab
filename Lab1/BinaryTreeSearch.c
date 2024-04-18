@@ -7,19 +7,19 @@ struct node {
     struct node *lChild, *rChild;
 } *root = NULL;
 
-typedef struct node *node;
+typedef struct node *Node;
 
-node getNode(int data) {
-    node temp = malloc(sizeof(node));
+Node getNode(int data) {
+    Node temp = malloc(sizeof(Node));
     temp->data = data;
     temp->lChild = NULL;
     temp->rChild = NULL;
     return temp;
 }
 
-node insert(node parent, int data) {
+Node insert(Node parent, int data) {
     if (parent == NULL) {
-        node temp = getNode(data);
+        Node temp = getNode(data);
         parent = temp;
     } else if (data > parent->data) {
         parent->rChild = insert(parent->rChild, data);
@@ -29,7 +29,7 @@ node insert(node parent, int data) {
     return parent;
 }
 
-bool search(node parent, int data) {
+bool search(Node parent, int data) {
     if (parent != NULL) {
         if (parent->data == data) {
             return true;

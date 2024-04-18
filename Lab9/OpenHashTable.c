@@ -7,8 +7,8 @@ struct node {
     struct node *next;
 } *start = NULL;
 
-typedef struct node *node;
-node hashTable[size];
+typedef struct node *Node;
+Node hashTable[size];
 int comp = 0;
 
 void init() {
@@ -17,8 +17,8 @@ void init() {
     }
 }
 
-node getNode(int value) {
-    node newNode = (node) malloc(sizeof(node));
+Node getNode(int value) {
+    Node newNode = (Node) malloc(sizeof(Node));
     newNode->data = value;
     newNode->next = NULL;
     return newNode;
@@ -29,7 +29,7 @@ void insert(int data) {
     if (hashTable[key] == NULL) {
         hashTable[key] = getNode(data);
     } else {
-        node temp = hashTable[key];
+        Node temp = hashTable[key];
         while (temp->next != NULL) {
             temp = temp->next;
         }
@@ -39,7 +39,7 @@ void insert(int data) {
 
 void printTable() {
     for (int i = 0; i < size; i++) {
-        node temp = hashTable[i];
+        Node temp = hashTable[i];
         printf("Key %d: ", i + 1);
         while (temp != NULL) {
             printf("%d ", temp->data);
@@ -51,7 +51,7 @@ void printTable() {
 
 void search(int elm) {
     int hashValue = elm % size;
-    node temp = hashTable[hashValue];
+    Node temp = hashTable[hashValue];
     comp++;
     if (temp->data == elm) {
         printf("Element found");

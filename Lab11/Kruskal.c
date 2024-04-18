@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include<time.h>
 
-#define size 500
+#define size 400
 typedef struct edge {
     int u, v, w;
 } edge;

@@ -6,17 +6,17 @@ struct node {
     struct node *lChild, *rChild;
 } *root = NULL;
 
-typedef struct node *node;
+typedef struct Node *Node;
 
-node getNode(int data) {
-    node temp = (node) malloc(sizeof(node));
+Node getNode(int data) {
+    Node temp = (Node) malloc(sizeof(Node));
     temp->data = data;
     temp->rChild = NULL;
     temp->lChild = NULL;
     return temp;
 }
 
-node insert(node parent, int data) {
+Node insert(Node parent, int data) {
     if (parent == NULL) {
         parent = getNode(data);
     } else if (data > parent->data) {
@@ -31,14 +31,14 @@ int max(int num1, int num2) {
     return (num1 > num2) ? num1 : num2;
 }
 
-int height(node parent) {
+int height(Node parent) {
     if (parent == NULL)
         return 0;
     int maxHeight = max(height(parent->lChild), height(parent->rChild));
     return 1 + maxHeight;
 }
 
-int diameter(node parent) {
+int diameter(Node parent) {
     if (parent == NULL)
         return 0;
     int lHeight = height(parent->lChild), rHeight = height(parent->rChild);

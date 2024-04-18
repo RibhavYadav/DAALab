@@ -19,7 +19,7 @@ void merge(int *array, int subArray1Index, int subArray2Index, int lastIndex) {
         opCount++;
         array[k++] = subArray1[i] <= subArray2[j] ? subArray1[i++] : subArray2[j++];
     }
-    // Adding left over elements from the sub arrays
+    // Adding lChild over elements from the sub arrays
     while (i < subArray1Length) {
         array[k++] = subArray1[i++];
     }
@@ -31,9 +31,9 @@ void merge(int *array, int subArray1Index, int subArray2Index, int lastIndex) {
 void mergeSort(int *array, int startIndex, int endIndex) {
     if (startIndex < endIndex) {
         int middleIndex = (startIndex + endIndex) / 2;
-        // Sort left half of the array
+        // Sort lChild half of the array
         mergeSort(array, startIndex, middleIndex);
-        // Sort right half of the array
+        // Sort rChild half of the array
         mergeSort(array, middleIndex + 1, endIndex);
         // Merge the sorted sub arrays
         merge(array, startIndex, middleIndex, endIndex);

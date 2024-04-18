@@ -5,16 +5,16 @@ struct node {
     int data;
     struct node *next;
 };
-typedef struct node *node;
+typedef struct node *Node;
 
 struct graph {
     int vertices;
-    node *adjList; // Pointer to an array of node's
+    Node *adjList; // Pointer to an array of Node's
 };
 typedef struct graph *graph;
 
-node getNode(int data) {
-    node temp = (node) malloc(sizeof(node));
+Node getNode(int data) {
+    Node temp = (Node) malloc(sizeof(Node));
     temp->data = data;
     temp->next = NULL;
     return temp;
@@ -23,7 +23,7 @@ node getNode(int data) {
 graph createGraph(int vertices) {
     graph gp = malloc(sizeof(graph));
     gp->vertices = vertices;
-    gp->adjList = malloc(sizeof(node) * vertices);
+    gp->adjList = malloc(sizeof(Node) * vertices);
     for (int i = 0; i < vertices; i++) {
         gp->adjList[i] = 0;
     }
@@ -31,8 +31,8 @@ graph createGraph(int vertices) {
 }
 
 void addEdge(graph gp, int s, int d) {
-    node source = getNode(s);
-    node dest = getNode(d);
+    Node source = getNode(s);
+    Node dest = getNode(d);
     source->next = gp->adjList[d];
     dest->next = gp->adjList[s];
     gp->adjList[s] = dest;
@@ -41,7 +41,7 @@ void addEdge(graph gp, int s, int d) {
 
 void printGraph(graph gp) {
     for (int i = 0; i < gp->vertices; i++) {
-        node temp = gp->adjList[i];
+        Node temp = gp->adjList[i];
         printf("%d: ", i);
         while (temp != NULL) {
             printf("%d->", temp->data);
@@ -55,9 +55,9 @@ void main() {
     graph gp = createGraph(5);
     for (int i = 0; i < 5; i++) {
         int n1, n2;
-        printf("Enter node: ");
+        printf("Enter Node: ");
         scanf("%d", &n1);
-        printf("Enter node: ");
+        printf("Enter Node: ");
         scanf("%d", &n2);
         addEdge(gp, n1, n2);
     }

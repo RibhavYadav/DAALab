@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define size 1000
+#define size 700
 
 int minDistance(int dist[], bool sptSet[]) {
     int min = INT_MAX, min_index;
@@ -58,7 +58,7 @@ void main() {
     }
     clock_t start, end;
     start = clock();
-    dijkstra(graph, 5);
+    dijkstra(graph, 3);
     end = clock();
     double tt = (double) (end - start) / CLOCKS_PER_SEC;
     printf("\nTime taken: %f", tt);

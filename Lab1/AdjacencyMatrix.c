@@ -31,9 +31,9 @@ void main() {
     initialize();
     int n1, n2;
     for (int i = 0; i < size; i++) {
-        printf("Enter node:");
+        printf("Enter Node:");
         scanf("%d", &n1);
-        printf("Enter node:");
+        printf("Enter Node:");
         scanf("%d", &n2);
         addEdge(n1, n2);
     }

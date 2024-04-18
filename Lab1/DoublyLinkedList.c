@@ -5,10 +5,10 @@ struct node {
     int data;
     struct node *prev, *next;
 } *start = NULL;
-typedef struct node *node;
+typedef struct node *Node;
 
-node getNode(int data) {
-    node temp = (node) malloc(sizeof(node));
+Node getNode(int data) {
+    Node temp = (Node) malloc(sizeof(Node));
     temp->data = data;
     temp->next = NULL;
     temp->prev = NULL;
@@ -16,8 +16,8 @@ node getNode(int data) {
 }
 
 void insert(int data) {
-    node temp = start;
-    node val = getNode(data);
+    Node temp = start;
+    Node val = getNode(data);
     if (start == NULL) {
         start = val;
     } else {
@@ -29,8 +29,8 @@ void insert(int data) {
     }
 }
 
-void insertAt(node val, int data) {
-    node temp = start;
+void insertAt(Node val, int data) {
+    Node temp = start;
     if (start == NULL) {
         start->next = val;
         val->prev = start;
@@ -45,7 +45,7 @@ void insertAt(node val, int data) {
     }
 }
 
-void delete(node val) {
+void delete(Node val) {
     if (val == start) {
         start = start->next;
         start->prev = NULL;
@@ -62,7 +62,7 @@ void delete(node val) {
 }
 
 void deleteValue(int data) {
-    node temp = start;
+    Node temp = start;
     while (temp != NULL) {
         if (temp->data == data) {
             delete(temp);
@@ -72,7 +72,7 @@ void deleteValue(int data) {
 }
 
 void search(int data) {
-    node temp = start;
+    Node temp = start;
     while (temp != NULL) {
         if (temp->data == data) {
             printf("Data found\n");
@@ -84,7 +84,7 @@ void search(int data) {
 }
 
 void display() {
-    for (node temp = start; temp != NULL; temp = temp->next) {
+    for (Node temp = start; temp != NULL; temp = temp->next) {
         printf("%d ", temp->data);
     }
     printf("\n");
@@ -105,7 +105,7 @@ void main() {
             case 2:
                 printf("Enter data:");
                 scanf("%d", &val);
-                node temp = getNode(val);
+                Node temp = getNode(val);
                 printf("Enter location:");
                 scanf("%d", &val);
                 insertAt(temp, val);

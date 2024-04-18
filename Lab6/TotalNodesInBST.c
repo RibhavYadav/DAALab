@@ -7,21 +7,21 @@ struct node {
     struct node *lChild, *rChild;
 } *root = NULL;
 
-typedef struct node *node;
+typedef struct node *Node;
 int totalNodes = 0;
 
 
-node getNode(int data) {
-    node temp = malloc(sizeof(node));
+Node getNode(int data) {
+    Node temp = malloc(sizeof(Node));
     temp->data = data;
     temp->lChild = NULL;
     temp->rChild = NULL;
     return temp;
 }
 
-node insert(node parent, int data) {
+Node insert(Node parent, int data) {
     if (parent == NULL) {
-        node temp = getNode(data);
+        Node temp = getNode(data);
         parent = temp;
     } else if (data > parent->data) {
         parent->rChild = insert(parent->rChild, data);
@@ -31,12 +31,12 @@ node insert(node parent, int data) {
     return parent;
 }
 
-void inorder(node parent) {
+void inOrder(Node parent) {
     if (parent != NULL) {
         totalNodes += 1;
-        inorder(parent->lChild);
+        inOrder(parent->lChild);
         printf("%d ", parent->data);
-        inorder(parent->rChild);
+        inOrder(parent->rChild);
     }
 }
 
@@ -44,6 +44,6 @@ void main() {
     for (int i = 0; i < 15; i++) {
         root = insert(root, rand() % 100 + 1);
     }
-    inorder(root);
+    inOrder(root);
     printf("\nTotal nodes are: %d", totalNodes);
 }

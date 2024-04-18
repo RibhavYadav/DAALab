@@ -62,8 +62,7 @@ void search(int elm) {
             if (temp->data == elm && temp != NULL) {
                 printf("Element found");
                 break;
-            } else
-                break;
+            }
         }
     }
 }

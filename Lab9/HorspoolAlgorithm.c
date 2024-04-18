@@ -4,30 +4,32 @@
 int MAX = 256, comp = 0;
 
 int horspool(char text[], char pattern[], int shiftTable[]) {
-    int k, n = strlen(text), m = strlen(pattern), i = m - 1;;
-    while (i < n) {
+    int k, textLength = strlen(text), patternLength = strlen(pattern), patternIndex = patternLength - 1;;
+    while (patternIndex < textLength) {
         k = 0;
         comp++;
-        while ((k < m) && (pattern[m - 1 - k] == text[i - k])) {
+        // Comparing characters from the right hand side of the pattern
+        while ((k < patternLength) && (pattern[patternLength - 1 - k] == text[patternIndex - k])) {
+            // On Match increment k
             comp++;
             k++;
         }
-        if (k == m)
-            return i - m + 1;
+        if (k == patternLength)
+            return patternIndex - patternLength + 1;
         else
-            i = i + shiftTable[text[i]];
+            patternIndex += shiftTable[text[patternIndex]];
     }
     return -1;
 }
 
-void getShiftTable(char pattern[], int text[]) {
+void getShiftTable(char pattern[], int shiftTable[]) {
     int m, i, j;
     m = strlen(pattern);
     for (i = 0; i < MAX; i++) {
-        text[i] = m;
+        shiftTable[i] = m - 1;
     }
     for (j = 0; j < m - 1; j++) {
-        text[pattern[j]] = m - 1 - j;
+        shiftTable[pattern[j]] = m - j;
     }
 }
 

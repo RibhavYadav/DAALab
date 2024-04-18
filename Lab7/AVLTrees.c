@@ -1,102 +1,119 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-struct node {
-    int data, nodeHeight;
-    struct node *lChild, *rChild;
+struct Node {
+    int key, height;
+    struct Node *lChild, *rChild;
 } *root = NULL;
 
-typedef struct node *node;
+typedef struct Node *Node;
 
-node getNode(int data) {
-    node temp = (node) malloc(sizeof(node));
-    temp->data = data;
-    temp->rChild = NULL;
-    temp->lChild = NULL;
-    temp->nodeHeight = 1;
-    return temp;
+Node newNode(int key) {
+    Node node = (Node) malloc(sizeof(node));
+    node->key = key;
+    node->lChild = NULL;
+    node->rChild = NULL;
+    node->height = 1;
+    return (node);
 }
 
-int max(int num1, int num2) {
-    return num1 > num2 ? num1 : num2;
-}
-
-int height(node parent) {
-    if (parent == NULL)
+int height(Node N) {
+    if (N == NULL)
         return 0;
-    int maxHeight = max(height(parent->lChild), height(parent->rChild));
-    return 1 + maxHeight;
+    return N->height;
 }
 
-int balanceFactor(node parent) {
-    if (parent == NULL)
+int max(int a, int b) {
+    return (a > b) ? a : b;
+}
+
+// Right rotate
+Node rightRotate(Node y) {
+    Node x = y->lChild;
+    Node T2 = x->rChild;
+
+    x->rChild = y;
+    y->lChild = T2;
+
+    y->height = max(height(y->lChild), height(y->rChild)) + 1;
+    x->height = max(height(x->lChild), height(x->rChild)) + 1;
+
+    return x;
+}
+
+// Left rotate
+Node leftRotate(struct Node *x) {
+    Node y = x->rChild;
+    Node T2 = y->lChild;
+
+    y->lChild = x;
+    x->rChild = T2;
+
+    x->height = max(height(x->lChild), height(x->rChild)) + 1;
+    y->height = max(height(y->lChild), height(y->rChild)) + 1;
+
+    return y;
+}
+
+// Get the balance factor
+int getBalance(Node N) {
+    if (N == NULL)
         return 0;
-    return height(parent->lChild) - height(parent->rChild);
+    return height(N->lChild) - height(N->rChild);
 }
 
-node rotateRight(node node1) {
-    node tempNode1 = node1->lChild, tempNode2 = node1->rChild;
-    tempNode1->rChild = node1;
-    node1->lChild = tempNode2;
-    node1->nodeHeight = height(node1);
-    tempNode1->nodeHeight = height(tempNode1);
-    return tempNode1;
-}
+// Insert Node
+Node insertNode(Node node, int key) {
+    // Find the correct position to insertNode the Node and insertNode it
+    if (node == NULL)
+        return (newNode(key));
+    if (key < node->key)
+        node->lChild = insertNode(node->lChild, key);
+    else if (key > node->key)
+        node->rChild = insertNode(node->rChild, key);
+    else
+        return node;
 
-node rotateLeft(node node1) {
-    node tempNode1 = node1->rChild, tempNode2 = node1->lChild;
-    tempNode1->lChild = node1;
-    node1->rChild = tempNode2;
-    node1->nodeHeight = height(node1);
-    tempNode1->nodeHeight = height(tempNode1);
-    return tempNode1;
-}
+    // Update the balance factor of each Node and
+    // Balance the tree
+    node->height = 1 + max(height(node->lChild), height(node->rChild));
 
-node insert(node parent, int data) {
-    if (parent == NULL) {
-        parent = getNode(data);
-    } else if (data > parent->data) {
-        parent->rChild = insert(parent->rChild, data);
-    } else if (data <= parent->data) {
-        parent->lChild = insert(parent->lChild, data);
+    int balance = getBalance(node);
+    if (balance > 1 && key < node->lChild->key)
+        return rightRotate(node);
+
+    if (balance < -1 && key > node->rChild->key)
+        return leftRotate(node);
+
+    if (balance > 1 && key > node->lChild->key) {
+        node->lChild = leftRotate(node->lChild);
+        return rightRotate(node);
     }
-    parent->nodeHeight = height(parent);
-    int bf = balanceFactor(parent);
-    if (bf > 1) {
-        if (data < parent->lChild->data) {
-            return rotateRight(parent); // Right Right Case
-        } else {
-            parent->lChild = rotateLeft(parent->lChild);
-            return rotateRight(parent); // Right Left Case
-        }
-    } else if (bf < -1) {
-        if (data > parent->rChild->data) {
-            return rotateLeft(parent); // Left Right Case
-        } else {
-            parent->rChild = rotateRight(parent->rChild);
-            return rotateLeft(parent); // Left Left Case
-        }
+
+    if (balance < -1 && key < node->rChild->key) {
+        node->rChild = rightRotate(node->rChild);
+        return leftRotate(node);
     }
-    return parent;
+
+    return node;
 }
 
-void inorder(node parent) {
+void inOrder(Node parent) {
+    // Print the lChild subtree of the given Node, then the Node itself and finally the rChild subtree
     if (parent != NULL) {
-        inorder(parent->lChild);
-        printf("%d ", parent->data);
-        inorder(parent->rChild);
+        inOrder(parent->lChild);
+        printf("%d ", parent->key);
+        inOrder(parent->rChild);
     }
 }
 
 void main() {
-    int size, elm;
+    int size;
     printf("Enter size: ");
     scanf("%d", &size);
-    while (size != 0) {
-        elm = rand() % 1000 + 1;
-        root = insert(root, elm);
-        inorder(root);
-        printf("\n %d \n", elm);
-        size--;
+    for (int i = 0; i < size; i++) {
+        int val = rand() % 100 + 1;
+        root = insertNode(root, val);
     }
+    inOrder(root);
 }

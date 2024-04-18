@@ -1,52 +1,60 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<time.h>
 
 struct node {
     int data;
     struct node *lChild, *rChild;
 } *root = NULL;
 
-typedef struct node *node;
+typedef struct node *Node;
 
-node getNode(int data) {
-    node temp = (node) malloc(sizeof(node));
+Node getNode(int data) {
+    // Create a Node with the given value as it's data and returns it's memory address
+    Node temp = (Node) malloc(sizeof(Node));
     temp->data = data;
     temp->rChild = NULL;
     temp->lChild = NULL;
     return temp;
 }
 
-node insert(node parent, int data) {
+Node insert(Node parent, int data) {
     if (parent == NULL) {
+        // If current Node does not exist create a Node with the given data
         parent = getNode(data);
     } else if (data > parent->data) {
+        // If the given data is greater than the current Node's value then insert in the rChild subtree
         parent->rChild = insert(parent->rChild, data);
     } else if (data <= parent->data) {
+        // If the given data is lesser than the current Node's value then insert in the lChild subtree
         parent->lChild = insert(parent->lChild, data);
     }
     return parent;
 }
 
-void preorder(node parent) {
+void preOrder(Node parent) {
+    // Print the current Node then recursively print the lChild subtree and then the rChild subtree
     if (parent != NULL) {
         printf("%d ", parent->data);
-        preorder(parent->lChild);
-        preorder(parent->rChild);
+        preOrder(parent->lChild);
+        preOrder(parent->rChild);
     }
 }
 
-void inorder(node parent) {
+void inOrder(Node parent) {
+    // Print the lChild subtree of the given Node, then the Node itself and finally the rChild subtree
     if (parent != NULL) {
-        inorder(parent->lChild);
+        inOrder(parent->lChild);
         printf("%d ", parent->data);
-        inorder(parent->rChild);
+        inOrder(parent->rChild);
     }
 }
 
-void postorder(node parent) {
+void postOrder(Node parent) {
+    // Print the lChild subtree and then the rChild subtree of the given Node before printing the given Node
     if (parent != NULL) {
-        postorder(parent->lChild);
-        postorder(parent->rChild);
+        postOrder(parent->lChild);
+        postOrder(parent->rChild);
         printf("%d ", parent->data);
     }
 }
@@ -60,10 +68,24 @@ void main() {
         root = insert(root, elm);
         size--;
     }
+    double tt;
+    clock_t st, ed;
     printf("Preorder: \n");
-    postorder(root);
+    st = clock();
+    preOrder(root);
+    ed = clock();
+    tt = (double) (ed - st) / CLOCKS_PER_SEC;
+    printf("\nTime taken is: %f", tt);
     printf("\nInorder: \n");
-    inorder(root);
+    st = clock();
+    inOrder(root);
+    ed = clock();
+    tt = (double) (ed - st) / CLOCKS_PER_SEC;
+    printf("\nTime taken is: %f", tt);
     printf("\nPostorder: \n");
-    postorder(root);
+    st = clock();
+    postOrder(root);
+    ed = clock();
+    tt = (double) (ed - st) / CLOCKS_PER_SEC;
+    printf("\nTime taken is: %f", tt);
 }

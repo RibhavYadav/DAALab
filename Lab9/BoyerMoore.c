@@ -32,11 +32,7 @@ void boyerMoore(char *text, char *pattern) {
             printf("Pattern at: %d", shifts);
             return;
         } else {
-            if (shifts + patternLength < textLength) {
-                shifts += patternLength - badTable[text[shifts + j]];
-            } else {
-                shifts += 1;
-            }
+            shifts += maximum(1, j - badTable[text[shifts + j]]);
         }
     }
 }

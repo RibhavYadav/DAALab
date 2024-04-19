@@ -28,31 +28,31 @@ int max(int a, int b) {
 }
 
 // Right rotate
-Node rightRotate(Node y) {
-    Node x = y->lChild;
-    Node T2 = x->rChild;
+Node rightRotate(Node x) {
+    Node T1 = x->lChild;
+    Node T2 = T1->rChild;
 
-    x->rChild = y;
-    y->lChild = T2;
+    T1->rChild = x;
+    x->lChild = T2;
 
-    y->height = max(height(y->lChild), height(y->rChild)) + 1;
     x->height = max(height(x->lChild), height(x->rChild)) + 1;
+    T1->height = max(height(T1->lChild), height(T1->rChild)) + 1;
 
-    return x;
+    return T1;
 }
 
 // Left rotate
 Node leftRotate(struct Node *x) {
-    Node y = x->rChild;
-    Node T2 = y->lChild;
+    Node T1 = x->rChild;
+    Node T2 = T1->lChild;
 
-    y->lChild = x;
+    T1->lChild = x;
     x->rChild = T2;
 
     x->height = max(height(x->lChild), height(x->rChild)) + 1;
-    y->height = max(height(y->lChild), height(y->rChild)) + 1;
+    T1->height = max(height(T1->lChild), height(T1->rChild)) + 1;
 
-    return y;
+    return T1;
 }
 
 // Get the balance factor

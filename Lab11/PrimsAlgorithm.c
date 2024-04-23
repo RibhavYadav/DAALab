@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-#define size 3 // Number of vertices
+#define size 10 // Number of vertices
 
 typedef struct edge {
     int u, v, w;

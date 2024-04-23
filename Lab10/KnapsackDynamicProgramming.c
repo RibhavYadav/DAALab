@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-#define size 5
+#define size 50
 #define knapsackSize 10
 int weights[size], values[size], table[size + 1][knapsackSize + 1];
 
@@ -40,6 +40,6 @@ int knapsack(int items, int capacity) {
 
 void main() {
     init();
-    int value = knapsack(size - 1, knapsackSize);
+    int value = knapsack(size, knapsackSize);
     printf("%d", value);
 }

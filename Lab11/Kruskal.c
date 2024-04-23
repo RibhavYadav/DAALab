@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include<time.h>
 
-#define size 400
+#define size 5
 typedef struct edge {
     int u, v, w;
 } edge;
@@ -36,7 +36,7 @@ int find(int belongs[], int vertex) {
 void applyUnion(int belongs[], int vertex1, int vertex2) {
     for (int i = 0; i < vertices; i++) {
         if (belongs[i] == vertex2) {
-            belongs[i] == vertex1;
+            belongs[i] = vertex1;
         }
     }
 }
@@ -97,7 +97,7 @@ void main() {
     start = clock();
     kruskal();
     end = clock();
-    //printMST();
+    printMST();
     double tt = (double) (end - start) / CLOCKS_PER_SEC;
     printf("\nTime taken: %f", tt);
 }
